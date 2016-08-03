@@ -1,18 +1,21 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    port: 3306,
-    host: 'l9dwvv6j64hlhpul.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'k7xla01xphzti210',
-    password: 'khfl08uz18mfnfge',
-    database: 'ovxat78p3u9nlobp'
-});
+var Sequelize = require('sequelize');
 
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log('connected as id ' + connection.threadId);
+var connection = new Sequelize('kks_schema', 'lisamwatkins', '');
+
+connection.sync().then(function(){
+    var Patties = connection.define('patties',{
+        patty_name: {
+            type: Sequelize.TEXT,
+            allowNull: false
+        },
+        devoured: {
+            type: Sequelize.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        }, {
+            freezeTableName: true
+        }
+    });
 });
 
 module.exports = connection;
