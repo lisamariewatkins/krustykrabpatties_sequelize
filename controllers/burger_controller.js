@@ -14,18 +14,23 @@ router.get('/patties', function(req,res){
 	});
 });
 
-// router.post('/burgers/create', function(req,res){
-// 	patties.insertOne(['burger_name', 'devoured'], [req.body.burger_name, req.body.devoured], function(data){
-// 			res.redirect('/burgers');
-// 	});
-// });
+router.post('/patties/create', function(req,res){
+	models.patties.create({
+		patty_name: req.body.patty_name,
+		devoured: req.body.devoured
+	}).then(function(){
+		res.redirect('/patties');
+	})
+});
 
-// router.put('/burgers/update/:id', function(req, res){
-// 	var condition = "id = " + req.params.id;
-
-// 	burger.updateOne({'devoured':req.body.devoured}, condition, function(data){
-// 		res.redirect('/burgers');
-// 	});
-// });
+router.put('/patties/update/:id', function(req, res){
+	models.patties.update({
+		devoured: req.body.devoured
+	},{
+		where: {id: req.params.id}
+	}).then(function(){
+		res.redirect('/patties');
+	});
+});
 
 module.exports = router;
